@@ -1,3 +1,5 @@
+document.getElementById("dateFrom").value = "2021-02-26"
+document.getElementById("dateTo").value = "2023-02-02"
 function handleSubmit() {
 	const dateFrom = document.getElementById("dateFrom").value
 	const dateTo = document.getElementById("dateTo").value
@@ -15,11 +17,7 @@ function handleSubmit() {
 		const lineTime = new Date(`${year}-${month}-${day}`).getTime()
 		console.log(new Date(`${year}-${month}-${day}`).getTime())
 		return lineTime >= fromTime && lineTime <= toTime;
-	});
-		
-		
-	console.log("filtr", filteredData)
-	
+	});	
 	
 	const timeData = filteredData.map(line => {
 	  const parts = line.split(';');
@@ -40,15 +38,7 @@ function handleSubmit() {
 	  const parts = line.split(';')
 	  return parts[3];
 	});
-
-	
-	console.log(timeData, humidity, temperature)
-	console.log(filteredData);
-	
-	showGraph(timeData, humidity, temperature)
-
-	
-	
+	showGraph(timeData, humidity, temperature)	
 } 
 
 function showGraph(timeData, humidity, temperature) {
@@ -72,19 +62,23 @@ function showGraph(timeData, humidity, temperature) {
 		  borderColor: "red",
 		  fill: true
 		}
+
 	const data = [];
 	if (showHumidity) data.push(humidityData)
 	if (showTemperature) data.push(temperatureData)
-	
-	new Chart("myChart", {
+
+	const chart = new Chart("myChart", {
 	  type: "line",
 	  data: {
 		labels: xValues,
 		datasets: data
 	  },
 	  options: {
-		legend: {display: true}
+		legend: {display: true},
+		maintainAspectRatio: true,
+		responsive: true
 	  }
 	});
+	chart.render();
 } 
 

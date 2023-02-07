@@ -6,10 +6,6 @@ html,body {
     text-align: center;
 }
 
-body {
-	background-color: blue;
-}
-
 .chartBox {
 	display: flex;
 	justify-content: center;
